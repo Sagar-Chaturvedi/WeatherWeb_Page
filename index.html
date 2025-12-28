@@ -4,16 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weather App</title>
-<link rel="stylesheet" href="style.css">
+
 <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 
-<script src="script.js"></script>
+
 
 </head>
+<style>
+    
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f7fb;
+}
+.navbar-brand {
+    font-weight: 600;
+}
+.hero {
+    background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470") center/cover no-repeat;
+    padding: 60px 0;
+}
+.weather-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 40px;
+    color: #fff;
+}
+.search-box {
+    background: #fff;
+    border-radius: 30px;
+    padding: 5px;
+}
+.search-box input {
+    border: none;
+    outline: none;
+}
+.info-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.forecast-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+footer {
+    background: #fff;
+    padding: 20px;
+    font-size: 14px;
+}
 
+</style>
 <body>
+<script>
+       function SerachClick()
+{
+    var cityName = document.getElementById("inputcityName").value;
 
+    var API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=8d9010f6a1ae1a796bac86be9176959f&units=metric`;
+
+    fetch(API_URL)
+    .then(function(response)
+    {
+          return response.json();
+    })
+
+    .then(function(weatherObj)
+{
+    document.getElementById("cityName").innerHTML = `${weatherObj.name},${weatherObj.sys.country}`;
+    document.getElementById("temprature").innerHTML = `${weatherObj.main.temp}&deg;C`;
+    document.getElementById("windspeed").innerHTML=`${weatherObj.wind.speed}`;
+    document.getElementById("Humidity").innerHTML=`${weatherObj.main.humidity}`;
+    document.getElementById("sunny").innerHTML=`${weatherObj.main.feels_like}`;
+    document.getElementById("cloud").innerHTML=`${weatherObj.clouds.all}%`;
+})
+
+ 
+
+}
+
+</script>
 <header class="navbar bg-white shadow-lg text-center">
     <div class="container-fluid">
     <h4 class="text-primary bi bi-cloud-sun-fill px-5 ">Weather App</h4>
